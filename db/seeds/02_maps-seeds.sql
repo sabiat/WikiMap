@@ -1,0 +1,3 @@
+INSERT INTO maps (user_id, name, description, image_url) VALUES (1, 'Best burgers', 'Burgers sites in Town', 'https://www.jessicagavin.com/wp-content/uploads/2020/05/grilled-burgers-34-1200.jpg');
+INSERT INTO maps (user_id, name, description, image_url) VALUES (2, 'Best pancakes', 'Pancake houses', 'https://media.eggs.ca/assets/RecipePhotos/_resampled/FillWyIxMjgwIiwiNzIwIl0/Fluffy-Pancakes-New-CMS.jpg');
+INSERT INTO maps (user_id, name, description, image_url) VALUES (3, 'Best hotdogs', 'Famous Hotdogs', 'https://culinaryginger.com/wp-content/uploads/Mexican-Style-Hot-Dogs-picture-11-735x490.jpg');
