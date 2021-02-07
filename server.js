@@ -49,7 +49,24 @@ app.use("/api/maps", mapsRoutes(db));
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 app.get("/", (req, res) => {
-  res.render("index");
+  return db.query(`SELECT * FROM maps`)
+  .then((data) => {
+    // const mapNames = []
+    // const mapImages = [];
+    const templateVars = {}
+    data.rows.forEach(row => {
+      // console.log(data.rows)
+      rowObject = {}
+      rowObject.name = row.name
+      rowObject.image = row.image_url
+      rowObject.id = row.id
+      templateVars[row.id] = rowObject
+    })
+    // templateVars.names = mapNames;
+    // templateVars.images = mapImages;
+    // console.log(templateVars)
+    return res.render("index", {templateVars})
+  })
 });
 
 app.listen(PORT, () => {

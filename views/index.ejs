@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <title>Home Page</title>
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
@@ -9,9 +17,19 @@
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
-  </head>
+    <script>
+    </script>
 
+  </head>
   <body>
-    <h1>Hello World!</h1>
+    <%- include('partials/_header') %>
+    <% for (let pair in templateVars) {%>
+      <div class="each-map">
+        <p>
+          <a href="/api/maps/<%=templateVars[pair].id%>"><%=templateVars[pair].name%></a>
+        </p>
+        <img src =<%=templateVars[pair].image%> width=200px>
+      </div>
+    <% } %>
   </body>
 </html>
