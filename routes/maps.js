@@ -14,6 +14,9 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+  router.get("/new", (req, res) => {
+    res.render("map_new")
+  })
   router.get("/:id", (req, res) => {
     const id = req.params.id
     const getMap = function(id) {

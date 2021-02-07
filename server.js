@@ -52,10 +52,6 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/api/maps/new", (req,res) => {
-  res.render("map_new");
-})
-
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
