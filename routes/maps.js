@@ -20,10 +20,11 @@ module.exports = (db) => {
   router.get("/:id", (req, res) => {
     const id = req.params.id
     const getMap = function(id) {
-      db.query(`SELECT * FROM pins WHERE id = $1;`, [id])
+      db.query(`SELECT * FROM pins JOIN maps ON maps.id = map_id WHERE maps.id = $1;`, [id])
       .then((data) => {
         const newArr = [];
         data.rows.forEach(row => newArr.push(row.address))
+        // console.log(newArr);
         return res.render("map", {newArr: newArr})
       })
       .catch (e => console.log(e))
