@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Geocoding Service</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <style type="text/css">
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 380px;
+        width: 100%;
+        
+        border: solid lightgray 1px;
+      }
+
+      /* Optional: Makes the sample page fill the window. */
+
+      footer {
+      margin-top: 40px;
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+    </style>
+    <script>
+      function initMap() {
+        
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 11,
+          center: { lat: 	43.69 , lng: -79.38 },
+        });
+
+        const geocoder = new google.maps.Geocoder();
+        document.getElementById("submit").addEventListener("click", () => {
+          geocodeAddress(geocoder, map);
+          const address = document.getElementById("address").value;
+          const name = document.getElementById("name").value;
+          let tableContent = `
+          <tr>
+            <td>${name}</td>
+            <td>${address}</td>
+            <td>1</td>
+          </tr>
+          `;
+          $("#table-rows").append(tableContent);
+
+        
+        });
+
+      }
+ 
+ 
+      function geocodeAddress(geocoder, resultsMap) {
+        const address = document.getElementById("address").value;
+        // const addressesArr =["5100 yonge street", "5200 yonge street", 
+        //                       "5300 yonge street", "5400 yonge street",
+        //                       "5500 yonge street", "5600 yonge street"]
+        // const address = "5100 yonge street";
+        // const address1 = "5200 yonge street";
+        // console.log(address);
+      
+          geocoder.geocode({ address: address}, (results, status) => {
+          if (status === "OK"){
+            resultsMap.setCenter(results[0].geometry.location);
+            // console.log(results[0].geometry);
+            new google.maps.Marker({
+              map: resultsMap,
+              position: results[0].geometry.location,
+            });
+            
+            
+          } else {
+            alert(
+              "Geocode was not successful for the following reason: " + status
+            );
+          }
+        });
+
+
+   
+      
+      }
+      
+//       $(document).ready(function() {
+//         $('#add-points').on('submit', function (event) {
+//     // prevent the default form submission
+//     event.preventDefault();
+//     const addPoints = $(this).serialize();
+//       $.ajax({
+//         url: '/api/maps/view',
+//         method: 'POST',
+//         data: addPoints
+//       })
+//         .done((data) => {
+          
+          
+//           $('h3').css("color", "red");
+    
+//         })
+//         .fail(() => {
+//         });
+//   });
+
+
+// });
+    
+    </script>
+  </head>
+
+  <body>
+    <header>
+      <%- include('partials/nav')%>
+    </header>
+
+    <div class="container text-center">    
+      <h3>Faviourite Places</h3><br>
+      <div class="row">
+        <div class="col-lg-6 shadow">
+          <div id="map" ></div>
+
+          <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+          <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrng7zM5sWK_73ZxHVX4TTdd9kYMaqQn8&callback=initMap&libraries=&v=weekly"
+            async
+          ></script>
+        </div>
+        <div class="col-lg-6 shadow" >
+          <div class="column">
+            <div class="row-lg-6">
+              <div class="table-responsive">          
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Address</th>
+                      <th>Type</th>
+                    </tr>
+                  </thead>
+                  <tbody id="table-rows">
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="row-lg-6" >
+              <div class="container.responsive" >
+                <h2>Add your important points</h2>
+                <form id="add-points" >
+                  <div class="form-group">
+                    <label for="pwd">Name:</label>
+                    <input id="name" type="textbox" class="form-control" placeholder="Enter Name" name="name" />
+                  </div>
+                  <div class="form-group">
+                    <label for="pwd">Geo Loction:</label>
+                    <input id="address" type="textbox" class="form-control" placeholder="Enter address" name="address" />
+                  </div>
+                  <button id="submit" type="button" class="btn btn-default" type="submit">geo</button>
+                  <!-- <button type="submit" class="btn btn-default">Submit</button> -->
+                </form>
+                <form id="save-map" method="POST" action="/api/map/view">
+                  <button id="submit" type="button" class="btn btn-default" type="submit" name="submit">Save map</button>
+                </form>
+              </div>
+            </div>
+        </div>
+    
+      </div>
+    </div><br>
+
+    
+    <footer class="container-fluid text-center">
+      <p>Footer Text</p>
+    </footer>
+  </body>
+</html>
