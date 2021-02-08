@@ -24,6 +24,7 @@ module.exports = (db) => {
       .then((data) => {
         const newArr = [];
         data.rows.forEach(row => newArr.push(row.address))
+        // console.log(newArr);
         return res.render("map", {newArr: newArr})
       })
       .catch (e => console.log(e))
