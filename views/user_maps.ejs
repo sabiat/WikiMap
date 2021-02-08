@@ -22,7 +22,9 @@
 
   </head>
   <body>
-    <%- include('partials/_header') %>
+    <header>
+      <%- include('partials/nav')%>
+    </header>
     <% for (let pair in templateVars) {%>
       <div class="each-map">
         <p>

@@ -9,11 +9,23 @@
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <!-- <script type="text/javascript" src="/scripts/app.js"></script> -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
+
+
+
     <style type="text/css">
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
-      #map {
-        height: 100%;
+       #map {
+        height: 380px;
+        width: 100%;
+        
+        border: solid lightgray 1px;
       }
       /* Optional: Makes the sample page fill the window. */
       html,
@@ -39,10 +51,42 @@
     <script type="text/javascript" src="/scripts/mapGenerator.js"></script>
   </head>
   <body>
-    <div id="map"></div>
-    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7aLgebVNw8LXLR_PuTPW7M2za9D3K5NQ&callback=initMap&libraries=&v=weekly"
-      async></script>
+    <header>
+      <%- include('partials/nav')%>
+    </header>
+
+    <div class="container text-center">    
+      <h3>Faviourite Places</h3><br>
+      <div class="row">
+        <div class="col-lg-6 shadow">
+          <div id="map" ></div>
+    
+          <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+          <script
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7aLgebVNw8LXLR_PuTPW7M2za9D3K5NQ&callback=initMap&libraries=&v=weekly"
+          async></script>
+        </div>
+        <div class="col-lg-6 shadow" >
+          <div class="column">
+            <div class="row-lg-6">
+              <div class="table-responsive">          
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Address</th>
+                      <th>Type</th>
+                    </tr>
+                  </thead>
+                  <tbody id="table-rows">
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        </div>   
+      </div>
+    </div><br>
+
+      
   </body>
 </html>
