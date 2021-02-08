@@ -23,11 +23,25 @@ module.exports = (db) => {
   });
   router.get("/:id/favourites", (req, res) => {
     const id = req.params.id
-    db.query(`
-    SELECT * FROM maps JOIN favourites ON maps.id = map_id WHERE maps.user_id = $1
-    `, [id])
-    .then(data => console.log(data.rows))
-  })
+    db.query(`SELECT favourites.*, maps.* FROM favourites JOIN maps ON maps.id=favourites.map_id WHERE favourites.user_id = $1`, [id])
+    .then((data) => {
+      // const mapNames = []
+      // const mapImages = [];
+      const templateVars = {}
+      console.log(data.rows)
+      data.rows.forEach(row => {
+        // console.log(data.rows)
+        rowObject = {}
+        rowObject.name = row.name
+        rowObject.image = row.image_url
+        rowObject.id = row.id
+        templateVars[row.id] = rowObject
+      })
+      // console.log(templateVars)
+      return res.render("user_favourites", {templateVars})
+    })
+    .catch(e => console.log(e))
+  });
   return router;
 
 };
