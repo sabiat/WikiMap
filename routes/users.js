@@ -21,5 +21,13 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+  router.get("/:id/favourites", (req, res) => {
+    const id = req.params.id
+    db.query(`
+    SELECT * FROM maps JOIN favourites ON maps.id = map_id WHERE maps.user_id = $1
+    `, [id])
+    .then(data => console.log(data.rows))
+  })
   return router;
+
 };
