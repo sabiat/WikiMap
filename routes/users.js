@@ -21,6 +21,14 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+  router.get("/login/:id", (req, res) => {
+    req.session.user_id = req.params.id;
+    res.redirect("/");
+  })
+  router.get("/my/favourites", (req, res) => {
+    const id = req.session.user_id;
+    res.redirect(`/api/users/${id}/favourites`);
+  })
   router.get("/:id/favourites", (req, res) => {
     const id = req.params.id
     db.query(`SELECT favourites.*, maps.* FROM favourites JOIN maps ON maps.id=favourites.map_id WHERE favourites.user_id = $1;`, [id])
