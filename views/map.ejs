@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
@@ -37,46 +36,48 @@
         padding-left: 10px;
       }
     </style>
-    <script type = "text/javascript" >
-    const fromQuery = "<%= newArr  %>"
-    console.log(fromQuery)
-      function initMap() {
-        const map = new google.maps.Map(document.getElementById("map"), {
-          zoom: 12,
-          center: { lat: 43.651070, lng: -79.347015 },
-        });
-        const geocoder = new google.maps.Geocoder();
-        // document.getElementById("submit").addEventListener("click", () => {
-        //   geocodeAddress(geocoder, map);
-        // });
-        window.onload = function() {
-          geocodeAddress(geocoder, map);
-        };
-      }
-        function geocodeAddress(geocoder, resultsMap) {
-        // const address = document.getElementById("address").value;
-        // const addressesArr =
-        // ["5100 yonge street", "5200 yonge street",
-        // "5300 yonge street", "5400 yonge street",
-        // "5500 yonge street", "5600 yonge street"]
-        const addressesArr = fromQuery.split(',');
-        addressesArr.forEach((address => {
-          geocoder.geocode({ address: address}, (results, status) => {
-          if (status === "OK"){
-            resultsMap.setCenter(results[0].geometry.location);
-            new google.maps.Marker({
-              map: resultsMap,
-              position: results[0].geometry.location,
-            });
-          } else {
-            alert(
-              "Geocode was not successful for the following reason: " + status
-            );
-          }
-        });
-        }));
-      }
-      </script>
+    <script type="text/javascript">
+
+const fromQuery = "<%= newArr  %>"
+
+function initMap() {
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 12,
+    center: { lat: 43.651070, lng: -79.347015 },
+  });
+  const geocoder = new google.maps.Geocoder();
+  // document.getElementById("submit").addEventListener("click", () => {
+  //   geocodeAddress(geocoder, map);
+  // });
+  window.onload = function() {
+    geocodeAddress(geocoder, map);
+  };
+}
+  function geocodeAddress(geocoder, resultsMap) {
+  // const address = document.getElementById("address").value;
+  // const addressesArr =
+  // ["5100 yonge street", "5200 yonge street",
+  // "5300 yonge street", "5400 yonge street",
+  // "5500 yonge street", "5600 yonge street"]
+  const addressesArr = fromQuery.split(',');
+  console.log(addressesArr[0]);
+  addressesArr.forEach((address => {
+    geocoder.geocode({ address: address}, (results, status) => {
+    if (status === "OK"){
+      resultsMap.setCenter(results[0].geometry.location);
+      new google.maps.Marker({
+        map: resultsMap,
+        position: results[0].geometry.location,
+      });
+    } else {
+      alert(
+        "Geocode was not successful for the following reason: " + status
+      );
+    }
+  });
+  }));
+}
+</script>
   </head>
   <body>
     <div id="floating-panel">
