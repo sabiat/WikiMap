@@ -17,19 +17,21 @@ module.exports = (db) => {
   router.get("/new", (req, res) => {
     res.render("map_new")
   })
-  router.get("/:id", (req, res) => {
+  router.get("/data/:id", (req, res) => {
     const id = req.params.id
     const getMap = function(id) {
       db.query(`SELECT pins.address FROM pins JOIN maps ON map_id = maps.id WHERE maps.id = $1;`, [id])
       .then((data) => {
         const newArr = [];
         data.rows.forEach(row => newArr.push(row.address))
-        // console.log(newArr);
-        return res.render("map", {newArr: newArr})
+        return res.json(newArr)
       })
       .catch (e => console.log(e))
     };
     getMap(id);
+  })
+  router.get("/:id", (req, res) => {
+    return res.render("map")
   })
   return router;
 };
