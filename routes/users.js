@@ -33,8 +33,29 @@ module.exports = (db) => {
     const user_id = req.session.user_id;
     const map_id = req.body["map-id"];
     const values = [user_id, map_id]
+    // db.query(`SELECT map_id, user_id, COUNT(*) FROM favourites GROUP BY map_id, user_id HAVING count(*) > 1`)
+    // .then(data => console.log(data.rows))
     db.query(`INSERT INTO favourites (user_id, map_id) VALUES ($1, $2)`, values)
+    .then(res => res.rows)
     res.redirect(`/api/users/${user_id}/favourites`)
+  })
+  router.get("/data/:id", (req, res) => {
+    const id = req.params.id;
+    db.query(`SELECT * FROM favourites JOIN users ON user_id = users.id WHERE user_id = $1`, [id])
+    .then((data) => {
+      return res.json(data.rows)
+    })
+  })
+  router.post("/favourites/delete", (req,res) => {
+    const mapToRemove = Object.keys(req.body)[0];
+    const user_id = req.session.user_id;
+    console.log(mapToRemove, user_id)
+    db.query(`DELETE FROM favourites WHERE map_id = $1 AND favourites.user_id= $2`, [mapToRemove, user_id])
+    .then(() => {
+      console.log('here');
+      res.redirect(`/api/users/${user_id}/favourites`)
+    })
+
   })
   router.get("/my/favourites", (req, res) => {
     const id = req.session.user_id;
@@ -44,19 +65,14 @@ module.exports = (db) => {
     const id = req.params.id
     db.query(`SELECT favourites.*, maps.* FROM favourites JOIN maps ON maps.id=favourites.map_id WHERE favourites.user_id = $1;`, [id])
     .then((data) => {
-      // const mapNames = []
-      // const mapImages = [];
       const templateVars = {}
-      console.log(data.rows)
       data.rows.forEach(row => {
-        // console.log(data.rows)
         rowObject = {}
         rowObject.name = row.name
         rowObject.image = row.image_url
         rowObject.id = row.id
         templateVars[row.id] = rowObject
       })
-      // console.log(templateVars)
       return res.render("user_favourites", {templateVars})
     })
     .catch(e => console.log(e))
