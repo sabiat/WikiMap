@@ -29,6 +29,9 @@ module.exports = (db) => {
     };
     getMap(id);
   });
+  router.get("/test", (req,res) => {
+    res.render("new_map")
+  })
   router.get("/:id", (req, res) => {
     return res.render("map")
   });
@@ -44,6 +47,27 @@ module.exports = (db) => {
     })
     .catch (e => console.log(e))
       });
+  router.post("/pins/add", (req, res) => {
+    console.log(req.params)
+    const userId = req.session.user_id;
+    const name = req.body["pin-name"];
+    const description = req.body["pin-description"];
+    const address = req.body["pin-address"];
+    const image_url = req.body["pin-image"];
+    const map_id = req.body["map-id"];
+    const values = [name, description, address, image_url, userId, map_id];
+    db.query(`INSERT INTO pins (name, description, address, image_url, user_id, map_id) VALUES ($1, $2, $3, $4, $5, $6)`, values)
+    .then(data =>
+      data.rows)
+    res.redirect(`/api/maps/${map_id}`)
+  })
+  router.post("/pins/delete", (req,res) => {
+    const name = req.body["pin-name-delete"]
+    const values = [name]
+    db.query(`DELETE FROM pins WHERE name = $1`, values)
+    .then(data => data.rows)
+    res.redirect("/")
+  })
   return router;
 };
 

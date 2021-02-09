@@ -78,5 +78,40 @@
         </div>
       </div>
     </div><br>
+    <div>
+      <h4>Add a new point:</h4>
+      <form action="/api/maps/pins/add" method="POST">
+        <div>
+          <label for="pin-name">Name of place:</label>
+          <input id="add-point" type="textbox" name="pin-name">
+        </div>
+        <div>
+          <label for="pin-description">Description:</label>
+          <textarea id="pin-description" type="textbox" name="pin-description"></textarea>
+        </div>
+        <div>
+          <label for="pin-address">Address:</label>
+          <input id="pin-address" type="textbox" name="pin-address">
+        </div>
+        <div>
+          <label for="pin-image">Image URL:</label>
+          <input id="pin-image" type="textbox" name="pin-image">
+        </div>
+        <div>
+          <input id="map-id" type="textbox" name="map-id" style= "display: none">
+        </div>
+        <button type="submit">Add point</button>
+
+      </form>
+      <h4>Delete a point:</h4>
+      <form action="/api/maps/pins/delete" method="POST">
+        <div>
+          <label for="pin-name-delete">Name of place:</label>
+          <input id="delete-point" type="textbox" name="pin-name-delete">
+        </div>
+        <button type="submit">Delete point</button>
+      </form>
+
+    </div>
   </body>
 </html>
