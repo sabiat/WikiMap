@@ -84,27 +84,15 @@ span.psw {
 
 <h2>Login Form</h2>
 
-<form id="login-form"  action="/" method="post">
+<form id="login-form"  action="/api/users/login" method="POST">
   <div class="imgcontainer">
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-HcOSnHqZObug5tHhvuKIDIItMObyCfoAkg&usqp=CAU" alt="Avatar" class="avatar">
   </div>
 
   <div class="container">
-    <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
-
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
-        
+    <label for="email"><b>Username</b></label>
+    <input type="text" placeholder="Enter email" name="email" required>
     <button type="submit">Login</button>
-    <label>
-      <input type="checkbox" checked="checked" name="remember"> Remember me
-    </label>
-  </div>
-
-  <div class="container" style="background-color:#f1f1f1">
-    <button type="button" class="cancelbtn">Cancel</button>
-    <span class="psw">Forgot <a href="#">password?</a></span>
   </div>
 </form>
 
