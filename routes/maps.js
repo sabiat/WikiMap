@@ -21,7 +21,7 @@ module.exports = (db) => {
   router.get("/data/:id", (req, res) => {
     const id = req.params.id
     const getMap = function(id) {
-      db.query(`SELECT pins.*, maps.name as map_name FROM pins RIGHT JOIN maps ON map_id = maps.id WHERE maps.id = $1;`, [id])
+      db.query(`SELECT pins.*, maps.name as map_name, maps.id as map_id FROM pins RIGHT JOIN maps ON map_id = maps.id WHERE maps.id = $1;`, [id])
       .then((data) => {
         return res.json(data.rows)
       })
