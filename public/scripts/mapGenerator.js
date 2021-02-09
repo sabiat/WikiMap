@@ -5,12 +5,15 @@ function initMap() {
     url: `/api/maps/data/${id[3]}`
   })
   .done((addresses)=> {
+          const newArr = [];
+          addresses.forEach(row => newArr.push(row.address))
           const map = new google.maps.Map(document.getElementById("map"), {
           zoom: 12,
           center: { lat: 43.651070, lng: -79.347015 },
         });
         const geocoder = new google.maps.Geocoder();
-        geocodeAddress(geocoder, map, addresses);
+        geocodeAddress(geocoder, map, newArr);
+
   })
 }
 function geocodeAddress(geocoder, resultsMap, addresses) {
@@ -31,5 +34,7 @@ addressesArr.forEach((address => {
   });
 }));
 }
+
+
 
 

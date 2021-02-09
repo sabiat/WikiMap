@@ -21,11 +21,11 @@ module.exports = (db) => {
   router.get("/data/:id", (req, res) => {
     const id = req.params.id
     const getMap = function(id) {
-      db.query(`SELECT pins.address FROM pins JOIN maps ON map_id = maps.id WHERE maps.id = $1;`, [id])
+      db.query(`SELECT pins.*FROM pins JOIN maps ON map_id = maps.id WHERE maps.id = $1;`, [id])
       .then((data) => {
-        const newArr = [];
-        data.rows.forEach(row => newArr.push(row.address))
-        return res.json(newArr)
+        // const newArr = [];
+        // data.rows.forEach(row => newArr.push(row.address))
+        return res.json(data.rows)
       })
       .catch (e => console.log(e))
     };
@@ -45,6 +45,7 @@ module.exports = (db) => {
       return data.rows;
     })
     .catch (e => console.log(e))
+    res.render("map")
       });
   return router;
 };
