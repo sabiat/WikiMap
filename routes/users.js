@@ -29,6 +29,13 @@ module.exports = (db) => {
     req.session = null;
     res.redirect("/");
   })
+  router.post("/favourites/add", (req, res) => {
+    const user_id = req.session.user_id;
+    const map_id = req.body["map-id"];
+    const values = [user_id, map_id]
+    db.query(`INSERT INTO favourites (user_id, map_id) VALUES ($1, $2)`, values)
+    res.redirect(`/api/users/${user_id}/favourites`)
+  })
   router.get("/my/favourites", (req, res) => {
     const id = req.session.user_id;
     res.redirect(`/api/users/${id}/favourites`);

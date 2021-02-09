@@ -29,9 +29,6 @@ module.exports = (db) => {
     };
     getMap(id);
   });
-  router.get("/test", (req,res) => {
-    res.render("new_map")
-  })
   router.get("/:id", (req, res) => {
     return res.render("map")
   });

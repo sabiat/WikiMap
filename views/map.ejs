@@ -79,7 +79,10 @@
       </div>
     </div><br>
     <div>
-      <button class="favbutton" type="button">Add to favourites</button>
+      <form action="/api/users/favourites/add" method="POST">
+        <input class="map-id" type="textbox" name="map-id" style= "display: none">
+        <button type="submit">Add to favourites</button>
+      </form>
     </div>
     <div>
       <h4>Add a new point:</h4>
@@ -101,7 +104,7 @@
           <input id="pin-image" type="textbox" name="pin-image">
         </div>
         <div>
-          <input id="map-id" type="textbox" name="map-id" style= "display: none">
+          <input class="map-id" type="textbox" name="map-id" style= "display: none">
         </div>
         <button type="submit">Add point</button>
       </form>

@@ -19,7 +19,7 @@ function initMap() {
           }
         }
         $("h3").text(`${pins[0].map_name}`)
-        $("#map-id").val(`${pins[0].map_id}`)
+        $(".map-id").val(`${pins[0].map_id}`)
   })
 }
 function geocodeAddress(geocoder, resultsMap, addresses) {
@@ -39,16 +39,7 @@ addressesArr.forEach((address => {
 }));
 }
 
-$(document).ready(function() {
-  $('.favbutton').on('click', function() {
-    $(this).toggleClass('favourited');
-    if ($(this).hasClass('favourited')) {
-      $(this).text('Added to favourites')
-    } else {
-      $(this).text('Add to favourites')
-    }
-  })
-});
+
 
 
 
