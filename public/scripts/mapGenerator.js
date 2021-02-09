@@ -39,6 +39,16 @@ addressesArr.forEach((address => {
 }));
 }
 
+$(document).ready(function() {
+  $('.favbutton').on('click', function() {
+    $(this).toggleClass('favourited');
+    if ($(this).hasClass('favourited')) {
+      $(this).text('Added to favourites')
+    } else {
+      $(this).text('Add to favourites')
+    }
+  })
+});
 
 
 

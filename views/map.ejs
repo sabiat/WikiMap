@@ -79,6 +79,9 @@
       </div>
     </div><br>
     <div>
+      <button class="favbutton" type="button">Add to favourites</button>
+    </div>
+    <div>
       <h4>Add a new point:</h4>
       <form action="/api/maps/pins/add" method="POST">
         <div>
@@ -101,7 +104,6 @@
           <input id="map-id" type="textbox" name="map-id" style= "display: none">
         </div>
         <button type="submit">Add point</button>
-
       </form>
       <h4>Delete a point:</h4>
       <form action="/api/maps/pins/delete" method="POST">
