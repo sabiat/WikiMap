@@ -4,16 +4,21 @@ function initMap() {
     method: "GET",
     url: `/api/maps/data/${id[3]}`
   })
-  .done((addresses)=> {
+  .done((pins)=> {
           const newArr = [];
-          addresses.forEach(row => newArr.push(row.address))
+          pins.forEach(row => newArr.push(row.address))
           const map = new google.maps.Map(document.getElementById("map"), {
           zoom: 12,
           center: { lat: 43.651070, lng: -79.347015 },
         });
         const geocoder = new google.maps.Geocoder();
-        geocodeAddress(geocoder, map, newArr);
-
+        if (newArr[0]) {
+          geocodeAddress(geocoder, map, newArr);
+          for (pin of pins) {
+            $('.table').append(`<tr><th>${pin.name}</th><th>${pin.address}</th></tr>`);
+          }
+        }
+        $("h3").text(`${pins[0].map_name}`)
   })
 }
 function geocodeAddress(geocoder, resultsMap, addresses) {
@@ -27,9 +32,7 @@ addressesArr.forEach((address => {
         position: results[0].geometry.location,
       });
     } else {
-      alert(
-        "Geocode was not successful for the following reason: " + status
-      );
+      alert("Geocode was not successful for the following reason: " + status);
     }
   });
 }));
