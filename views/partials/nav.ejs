@@ -4,7 +4,7 @@
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
+        <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="/">WikiMaps</a>
     </div>
@@ -17,8 +17,9 @@
     <ul class="nav navbar-nav navbar-right">
       <li><a href = "/"><span class="glyphicon glyphicon-log-out"></span> Register</a></li>
       <li><a href = "/"><span class="glyphicon glyphicon-log-out"></span> Login</a></li>
-
- 
+      <li><form action="/api/users/logout" method="POST">
+        <button type="submit" class="glyphicon glyphicon-log-out" name="logout">Logout</button>
+        </form></li>
     </ul>
     </div>
   </div>
