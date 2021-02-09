@@ -2,7 +2,15 @@
 <html>
   <head>
     <title>Simple Map</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+      <!-- jQuery library -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+      <!-- Latest compiled JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <style type="text/css">
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -22,39 +30,32 @@
         padding: 0;
       }
     </style>
-    <script>
-      let map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById("map"), {
-          center: { lat: 43.651070, lng: -79.347015 },
-          zoom: 10,
-        });
-      }
-    </script>
+
   </head>
   <body>
     <header>
       <%- include('partials/nav')%>
     </header>
-    <h1>Create a new map</h1>
-    <form action="/api/maps" method="POST">
-      <div class = "new-map-form form-group">
-        <label for = "title" >Title:</label>
-        <input class="form-control" type = "text" name = "title" id = "title-input" style="width: 300px; margin: 0.5em">
-        <label for = "description" >Description:</label>
-        <textarea class="form-control"type = "text" name = "description" id = "description-input"></textarea>
-        <label for = "map-image" >Image url:</label>
-        <input class="form-control"type = "text" name = "map-image" id = "map-picture" style="width: 300px; margin: 0.5em">
-        <button>Create map</button>
-      </div>
-      <!-- <div id="map"></div> -->
-    </form>
-
-    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7aLgebVNw8LXLR_PuTPW7M2za9D3K5NQ&callback=initMap&libraries=&v=weekly"
-      async
-    ></script>
-    <div id="map"></div>
+    <div class="container.responsive" >
+      <h2>Create a new map</h2>
+      <form action="/api/maps/" method="POST" >
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input id="name" type="textbox" class="form-control" placeholder="Enter Title" name="name" />
+        </div>
+        <div class="form-group">
+          <label for="pwd">Description:</label>
+          <textarea id="description" type="textbox" class="form-control" placeholder="Enter address" name="description" /></textarea>
+        </div>
+        <div class="form-group">
+          <label for="imageurl">Image URL:</label>
+          <input id="imageurl" type="textbox" class="form-control" placeholder="Enter URL" name="imageurl" />
+        </div>
+        <button id="submit" class="btn btn-default" type="submit">Add</button>
+        <!-- <button type="submit" class="btn btn-default">Submit</button> -->
+      </form>
+    </div>
   </body>
 </html>
+
+
