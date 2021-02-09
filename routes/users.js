@@ -25,6 +25,10 @@ module.exports = (db) => {
     req.session.user_id = req.params.id;
     res.redirect("/");
   })
+  router.post("/logout", (req, res) => {
+    req.session = null;
+    res.redirect("/");
+  })
   router.get("/my/favourites", (req, res) => {
     const id = req.session.user_id;
     res.redirect(`/api/users/${id}/favourites`);
