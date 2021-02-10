@@ -19,7 +19,7 @@ function initMap() {
           }
         }
         $("h3").text(`${pins[0].map_name}`)
-        $("#map-id").val(`${pins[0].map_id}`)
+        $(".map-id").val(`${pins[0].map_id}`)
   })
 }
 function geocodeAddress(geocoder, resultsMap, addresses) {
@@ -38,6 +38,7 @@ addressesArr.forEach((address => {
   });
 }));
 }
+
 
 
 

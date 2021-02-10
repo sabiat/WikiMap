@@ -72,6 +72,12 @@
             <div id ="map-text" class="row-lg-6" >
               <div class="container.responsive" >
                 <h4>Add a new point:</h4>
+                <div>
+                  <form action="/api/users/favourites/add" method="POST">
+                    <input class="map-id" type="textbox" name="map-id" style= "display: none">
+                    <button type="submit">Add to favourites</button>
+                  </form>
+                </div>
                 <form class="form-group" action="/api/maps/pins/add" method="POST">
                   <div>
                     <label for="pin-name">Name of place:</label>
@@ -93,7 +99,7 @@
                     <input id="map-id" type="textbox" name="map-id" style= "display: none">
                   </div></br>
                   <button class="btn btn-default" type="submit">Add point</button>
-          
+
                 </form>
               </div>
             </div>
@@ -110,7 +116,7 @@
                   </div>
                 </form>
 
-                
+
                 <div class="form-group">
                   <label for="exampleFormControlSelect1">Example select</label>
                   <select class="form-control" id="exampleFormControlSelect1">
