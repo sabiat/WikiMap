@@ -27,6 +27,9 @@
         padding-bottom: 15px;
         padding-left: 35px;
       }
+      img {
+        width:300px;
+      }
       </style>
   </head>
   <body>
@@ -36,14 +39,16 @@
     <div class="container text-left">
     <% for (let pair in templateVars) {%>
       <div class="column">
-        <div class="each-map col-md-4">
+        <div class="each-map col-md-3">
         <p>
           <a href="/api/maps/<%=templateVars[pair].id%>"><%=templateVars[pair].name%></a>
         </p>
-        <img class = "img-responsive img-rounded"src =<%=templateVars[pair].image%> width=300px></br>
-        <button class="remove-favourite btn btn-danger" >
+        <img class = "img-responsive img-rounded"src =<%=templateVars[pair].image%>></br>
+        <% if (templateVars[pair].currentUserId == templateVars[pair].userId) { %>
+        <button class="remove-favourite btn btn-danger">
           <span class="glyphicon glyphicon-trash"></span> Remove from favourites
         </button>
+        <% } %>
       </div>
     </div>
     <% } %>

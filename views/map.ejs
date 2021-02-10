@@ -55,6 +55,7 @@
         </div>
         <div class="col-lg-5" >
           <div class="column">
+            <% if (id) { %>
             <div>
               <form action="/api/users/favourites/add" method="POST">
                 <input class="map-id" type="textbox" name="map-id" style= "display: none">
@@ -62,6 +63,7 @@
                   <span class="glyphicon glyphicon-star"></span> Add to favourites</button>
               </form>
             </div>
+            <% } %>
             <div id ="map-text" class="row-lg-4">
               <div class="table-responsive">
                 <table class="table">
@@ -78,6 +80,7 @@
             </div>
             <div class ="map-text" class="row-lg-4" >
               <div class="container.responsive" >
+                <% if (id) { %>
                 <h4>Add a new point:</h4>
                 <form class="form-group" action="/api/maps/pins/add" method="POST">
                   <div>
@@ -130,10 +133,9 @@
                 <div>
                   <button class="btn btn-default" type="submit">Add point</button>
                 </div>
-
-
               </div>
             </div>
+            <% } %>
           </div>
         </div>
     </div><br>

@@ -82,7 +82,8 @@ module.exports = (db) => {
     res.render('login');
   })
   router.get("/:id/favourites", (req, res) => {
-    const id = req.params.id
+    const id = req.params.id;
+    const userId = req.session.user_id;
     db.query(`SELECT favourites.*, maps.* FROM favourites JOIN maps ON maps.id=favourites.map_id WHERE favourites.user_id = $1;`, [id])
     .then((data) => {
       const templateVars = {}
@@ -91,9 +92,15 @@ module.exports = (db) => {
         rowObject.name = row.name
         rowObject.image = row.image_url
         rowObject.id = row.id
+        rowObject.currentUserId = userId
+        rowObject.userId = id;
         templateVars[row.id] = rowObject
       })
-      return res.render("user_favourites", {templateVars})
+      if (userId) {
+        return res.render("user_favourites", {templateVars})
+      }
+      res.redirect("/api/users/login")
+
     })
     .catch(e => console.log(e))
   });
