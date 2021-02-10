@@ -25,13 +25,16 @@
     <header>
       <%- include('partials/nav')%>
     </header>
+    <div class="container text-left"> 
     <% for (let pair in templateVars) {%>
-      <div class="each-map">
+      <div class="row">
+        <div class="each-map col-md">
         <p>
           <a href="/api/maps/<%=templateVars[pair].id%>"><%=templateVars[pair].name%></a>
         </p>
-        <img src =<%=templateVars[pair].image%> width=200px>
+        <img class="img-responsive img-rounded" src =<%=templateVars[pair].image%>>
       </div>
+    </div>
     <% } %>
   </body>
 </html>
