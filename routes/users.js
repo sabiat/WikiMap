@@ -44,6 +44,12 @@ module.exports = (db) => {
     req.session.user_id = req.params.id;
     res.redirect("/");
   })
+  router.get("/signup", (req, res) => {
+    // const templateVars = {
+    //   userObject: req.session["id"]
+    // };
+    res.render("signup");
+  });
   router.post("/logout", (req, res) => {
     req.session = null;
     res.redirect("/");
