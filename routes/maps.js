@@ -33,10 +33,10 @@ module.exports = (db) => {
     getMap(id);
   });
   router.get("/:id", (req, res) => {
-    if(req.session.user_id){
-      return res.render("map");
-    }
-    res.render('login');
+    const id = req.session.user_id;
+    const templateVars = {id}
+      return res.render("map", templateVars);
+
   });
   router.post("/", (req, res) => {
     const name = req.body.name;
