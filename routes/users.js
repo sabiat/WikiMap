@@ -21,12 +21,15 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
   router.get("/login", (req, res) => {
     if(req.session.user_id) {
       return res.redirect('/');
     }
-    res.render('login')
+    const templateVars = {user: req.session.user_id}
+    res.render('login', templateVars)
   })
+
   router.post("/login", (req, res) => {
     const username = req.body.email;
     console.log(username)
@@ -40,15 +43,18 @@ module.exports = (db) => {
       }
     })
   })
+
   router.get("/login/:id", (req, res) => {
     req.session.user_id = req.params.id;
     res.redirect("/");
   })
+
   router.get("/signup", (req, res) => {
     if(req.session.user_id) {
       return res.redirect('/');
     }
-    res.render('signup')
+    const templateVars = {user: req.session.user_id}
+    res.render('signup', templateVars)
   });
 
   router.post("/signup", (req, res) => {
@@ -65,10 +71,12 @@ module.exports = (db) => {
       }
     })
   });
+
   router.post("/logout", (req, res) => {
     req.session = null;
     res.redirect("/");
   })
+
   router.post("/favourites/add", (req, res) => {
     const user_id = req.session.user_id;
     const map_id = req.body["map-id"];
@@ -77,6 +85,7 @@ module.exports = (db) => {
     .then(res => res.rows)
     res.redirect(`/api/users/${user_id}/favourites`)
   })
+
   router.get("/data/:id", (req, res) => {
     const id = req.params.id;
     db.query(`SELECT * FROM favourites JOIN users ON user_id = users.id WHERE user_id = $1`, [id])
@@ -84,6 +93,7 @@ module.exports = (db) => {
       return res.json(data.rows)
     })
   })
+
   router.post("/favourites/delete", (req,res) => {
     const mapToRemove = Object.keys(req.body)[0];
     const user_id = req.session.user_id;
@@ -91,21 +101,24 @@ module.exports = (db) => {
     .then(() => {
       res.redirect(`/api/users/${user_id}/favourites`)
     })
-
   })
+
   router.get("/my/favourites", (req, res) => {
     if(req.session.user_id){
       const id = req.session.user_id;
       return res.redirect(`/api/users/${id}/favourites`);
     }
-    res.render('login');
+    const templateVars = {user: req.session.user_id}
+    res.render('login', templateVars);
   })
+
   router.get("/:id/favourites", (req, res) => {
     const id = req.params.id;
     const userId = req.session.user_id;
     db.query(`SELECT favourites.*, maps.* FROM favourites JOIN maps ON maps.id=favourites.map_id WHERE favourites.user_id = $1;`, [id])
     .then((data) => {
-      const templateVars = {}
+      let templateVars = {user: req.session.user_id}
+      let parsedData = {}
       data.rows.forEach(row => {
         rowObject = {}
         rowObject.name = row.name
@@ -113,39 +126,44 @@ module.exports = (db) => {
         rowObject.id = row.id
         rowObject.currentUserId = userId
         rowObject.userId = id;
-        templateVars[row.id] = rowObject
+        parsedData[row.id] = rowObject
       })
+      templateVars["data"] = parsedData
       if (userId) {
-        return res.render("user_favourites", {templateVars})
+        return res.render("user_favourites", templateVars)
       }
       res.redirect("/api/users/login")
-
     })
     .catch(e => console.log(e))
   });
+
   router.get("/my/maps", (req, res) => {
+    const templateVars = {user: req.session.user_id}
+    console.log(templateVars)
     if(req.session.user_id){
       const id = req.session.user_id;
       return res.redirect(`/api/users/${id}/maps`);
     }
-    res.render('login');
+    res.render('login', templateVars);
   })
+
   router.get("/:id/maps", (req, res) => {
     const id = req.params.id
     db.query(`SELECT * FROM maps WHERE user_id = $1;`, [id])
     .then((data) => {
-      const templateVars = {}
+      let templateVars = {user: req.session.user_id}
+      let parsedData = {}
       console.log(templateVars)
       data.rows.forEach(row => {
         rowObject = {}
         rowObject.name = row.name
         rowObject.image = row.image_url
         rowObject.id = row.id
-        templateVars[row.id] = rowObject
+        parsedData[row.id] = rowObject
       })
-      return res.render("user_maps", {templateVars})
+      templateVars["data"] = parsedData;
+      return res.render("user_maps", templateVars)
     })
   });
   return router;
-
 };
