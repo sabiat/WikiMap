@@ -11,24 +11,17 @@
       <!-- Latest compiled JavaScript -->
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
       <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+      <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+
+      
     <style type="text/css">
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 50%;
-        width: 50%;
-        margin: auto;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html,
-      body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
+    .p-2{
+      margin-top: 15vh;
+      border: solid lightgray 3px;
+      padding: 15px;
+    }
+
     </style>
 
   </head>
@@ -36,24 +29,29 @@
     <header>
       <%- include('partials/nav')%>
     </header>
-    <div class="container.responsive" >
-      <h2>Create a new map</h2>
-      <form action="/api/maps/" method="POST" >
-        <div class="form-group">
-          <label for="name">Name:</label>
-          <input id="name" type="textbox" class="form-control" placeholder="Enter Title" name="name" />
+    <div class="col-md-8 col-md-offset-2">
+      <div class="p-2">
+        <div class="container.responsive" >
+          <h2>Create a new map</h2>
+          <form action="/api/maps/" method="POST" >
+            <div class="form-group">
+              <label for="name" >Name:</label>
+              <input id="name" type="textbox" class="form-control" placeholder="Enter Title" name="name" />
+            </div>
+            <div class="form-group">
+              <label for="pwd">Description:</label>
+              <textarea id="description" type="textbox" class="form-control" placeholder="Enter address" name="description" /></textarea>
+            </div>
+            <div class="form-group">
+              <label for="imageurl">Image URL:</label>
+              <input id="imageurl" type="textbox" class="form-control" placeholder="Enter URL" name="imageurl" />
+            </div>
+            <button id="submit" class="btn btn-default" type="submit">Add</button>
+            <!-- <button type="submit" class="btn btn-default">Submit</button> -->
+          </form>
+          
         </div>
-        <div class="form-group">
-          <label for="pwd">Description:</label>
-          <textarea id="description" type="textbox" class="form-control" placeholder="Enter address" name="description" /></textarea>
-        </div>
-        <div class="form-group">
-          <label for="imageurl">Image URL:</label>
-          <input id="imageurl" type="textbox" class="form-control" placeholder="Enter URL" name="imageurl" />
-        </div>
-        <button id="submit" class="btn btn-default" type="submit">Add</button>
-        <!-- <button type="submit" class="btn btn-default">Submit</button> -->
-      </form>
+      </div>
     </div>
   </body>
 </html>
