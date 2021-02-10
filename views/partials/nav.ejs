@@ -1,3 +1,9 @@
+<style>
+  .btn{
+  margin-left:10px;
+  background-color:   ;
+}
+</style>
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -10,16 +16,24 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">Home</a></li>
         <li><a href="/api/maps/new">Create a Map!</a></li>
         <li><a href = "/api/users/my/favourites" class="btn nav">My Favourites</a></li>
       </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href = "/"><span class="glyphicon glyphicon-log-out"></span> Register</a></li>
-      <li><a href = "/"><span class="glyphicon glyphicon-log-out"></span> Login</a></li>
+      <!-- <li><a href = "/"><span class="glyphicon glyphicon-log-out"></span> Register</a></li> -->
+      <li><a href = "/"><span class="glyphicon glyphicon-user"></span> Welcome !</a></li>
+      <li >
+        <form action="/api/users/logout" method="POST">
+        <button type="submit" class="btn btn-default navbar-btn" name="logout">
+          <span class="glyphicon glyphicon-log-in"></span> Login</button>
+        </form>
+      </li>
       <li><form action="/api/users/logout" method="POST">
-        <button type="submit" class="glyphicon glyphicon-log-out" name="logout">Logout</button>
-        </form></li>
+        <button type="submit" class="btn btn-default navbar-btn" name="logout">
+          <span class="glyphicon glyphicon-log-out"></span> Logout</button>
+        </form>
+      </li>
     </ul>
     </div>
   </div>
