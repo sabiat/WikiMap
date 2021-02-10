@@ -15,7 +15,10 @@ module.exports = (db) => {
       });
   });
   router.get("/new", (req, res) => {
-    res.render("map_new")
+    if(req.session.user_id){
+      return res.render("map_new")
+    }
+    res.render('login')
   })
 
   router.get("/data/:id", (req, res) => {
@@ -33,7 +36,10 @@ module.exports = (db) => {
     res.render("new_map")
   })
   router.get("/:id", (req, res) => {
-    return res.render("map")
+    if(req.session.user_id){
+      return res.render("map");
+    }
+    res.render('login');
   });
   router.post("/", (req, res) => {
     const name = req.body.name;
@@ -57,8 +63,7 @@ module.exports = (db) => {
     const map_id = req.body["map-id"];
     const values = [name, description, address, image_url, userId, map_id];
     db.query(`INSERT INTO pins (name, description, address, image_url, user_id, map_id) VALUES ($1, $2, $3, $4, $5, $6)`, values)
-    .then(data =>
-      data.rows)
+    .then(data => data.rows)
     res.redirect(`/api/maps/${map_id}`)
   })
   router.post("/pins/delete", (req,res) => {
