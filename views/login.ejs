@@ -9,95 +9,27 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-  
-</head>
-<style>
-body {font-family: Arial, Helvetica, sans-serif;}
-#login-form {border: 3px solid #f1f1f1;}
-
-input[type=text], input[type=password] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-}
-
-button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-}
-
-button:hover {
-  opacity: 0.8;
-}
-/* #login-form {
-  width: 50vw;
-  height: 50vh;
-  align-self: center;
-} */
-
-.cancelbtn {
-  width: auto;
-  padding: 10px 18px;
-  background-color: #f44336;
-}
-
-.imgcontainer {
-  text-align: center;
-  margin: 24px 0 12px 0;
-}
-
-img.avatar {
-  width: 20%;
-  border-radius: 50%;
-}
-
-.container {
-  padding: 16px;
-}
-
-span.psw {
-  float: right;
-  padding-top: 16px;
-}
-
-/* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
-  span.psw {
-     display: block;
-     float: none;
-  }
-  .cancelbtn {
-     width: 100%;
-  }
-}
-</style>
+  <link rel="stylesheet" href="/styles/login-form.css" type="text/css" />
 </head>
 <body>
   <header>
     <%- include('partials/nav')%>
   </header>
 
-<h2>Login Form</h2>
+<div class="col-md-6 col-md-offset-3">
+  <h1>Login</h1>
+  <form id="login-form"  action="/api/users/login" method="POST">
+    <div class="imgcontainer">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-HcOSnHqZObug5tHhvuKIDIItMObyCfoAkg&usqp=CAU" alt="Avatar" class="avatar">
+    </div>
 
-<form id="login-form"  action="/api/users/login" method="POST">
-  <div class="imgcontainer">
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-HcOSnHqZObug5tHhvuKIDIItMObyCfoAkg&usqp=CAU" alt="Avatar" class="avatar">
-  </div>
-
-  <div class="container">
-    <label for="email"><b>Username</b></label>
-    <input type="text" placeholder="Enter email" name="email" required>
-    <button type="submit">Login</button>
-  </div>
-</form>
+    <div class="container.responsive">
+      <label for="email"><b>Username</b></label>
+      <input type="text" placeholder="Enter email" name="email" required>
+      <button id="submit-button" type="submit">Login</button>
+    </div>
+  </form>
+</div>
 
 </body>
 </html>
