@@ -15,7 +15,6 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li><a href="#">Home</a></li>
         <li><a href="/api/maps/new">Create a Map!</a></li>
         <li><a href = "/api/users/my/favourites" class="btn nav">My Favourites</a></li>
         <li><a href = "/api/users/my/maps" class="btn nav">My Maps</a></li>
@@ -23,12 +22,15 @@
       </ul>
     <ul class="nav navbar-nav navbar-right">
       <!-- <li><a href = "/"><span class="glyphicon glyphicon-log-out"></span> Register</a></li> -->
+
       <li>
         <form action="/api/users/myprofile" method="GET">
           <button type="submit" class="btn btn-default navbar-btn" id="navbar-group-button" name="userprofile">
             <span class="glyphicon glyphicon-user"></span> My Profile</button>
         </form>
       </li>
+
+      <% if(!user) {%>
       <li >
         <form action="/api/users/login" method="GET">
         <button type="submit" class="btn btn-default navbar-btn" id="navbar-group-button" name="login">
@@ -40,11 +42,19 @@
           <span class="glyphicon glyphicon-log-in"></span> Signup</button>
         </form>
       </li>
-      <li><form action="/api/users/logout" method="POST">
-        <button type="submit" class="btn btn-default navbar-btn" id="navbar-group-button" name="logout">
-          <span class="glyphicon glyphicon-log-out"></span> Logout</button>
-        </form>
-      </li>
+      <% } else {%>
+        <li>
+          <form action="/api/users/user_profile" method="GET">
+            <button type="submit" class="btn btn-default navbar-btn" id="navbar-group-button" name="userprofile">
+              <span class="glyphicon glyphicon-user"></span> My Profile</button>
+          </form>
+        </li>
+        <li><form action="/api/users/logout" method="POST">
+          <button type="submit" class="btn btn-default navbar-btn" id="navbar-group-button" name="logout">
+            <span class="glyphicon glyphicon-log-out"></span> Logout</button>
+          </form>
+        </li>
+        <% } %>
     </ul>
     </div>
   </div>

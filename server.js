@@ -62,19 +62,21 @@ app.get("/", (req, res) => {
   .then((data) => {
     // const mapNames = []
     // const mapImages = [];
-    const templateVars = {}
+    let templateVars = {user: req.session.user_id}
+    let parsedData = {}
     data.rows.forEach(row => {
       // console.log(data.rows)
       rowObject = {}
       rowObject.name = row.name
       rowObject.image = row.image_url
       rowObject.id = row.id
-      templateVars[row.id] = rowObject
+      parsedData[row.id] = rowObject
     })
+    templateVars["data"] = parsedData;
     // templateVars.names = mapNames;
     // templateVars.images = mapImages;
     // console.log(templateVars)
-    return res.render("index", {templateVars})
+    return res.render("index", templateVars)
   })
 });
 

@@ -15,10 +15,11 @@ module.exports = (db) => {
       });
   });
   router.get("/new", (req, res) => {
+    const templateVars = {user: req.session.user_id}
     if(req.session.user_id){
-      return res.render("map_new")
+      return res.render("map_new", templateVars)
     }
-    res.render('login')
+    res.render("login", templateVars)
   })
 
   router.get("/data/:id", (req, res) => {
@@ -33,10 +34,8 @@ module.exports = (db) => {
     getMap(id);
   });
   router.get("/:id", (req, res) => {
-    const id = req.session.user_id;
-    const templateVars = {id}
-      return res.render("map", templateVars);
-
+    const templateVars = {user: req.session.user_id}
+    return res.render("map", templateVars);
   });
   router.post("/", (req, res) => {
     const name = req.body.name;
@@ -44,9 +43,10 @@ module.exports = (db) => {
     const imageUrl = req.body.imageurl;
     const userId = req.session.user_id;
     const values = [userId, name, description, imageUrl];
-    db.query(`INSERT INTO maps (user_id, name, description, image_url) VALUES ($1, $2, $3, $4)`, values )
+    db.query(`INSERT INTO maps (user_id, name, description, image_url) VALUES ($1, $2, $3, $4) RETURNING *;`, values )
     .then((data) => {
-      return data.rows;
+      const id = data.rows[0].id
+      res.redirect(`/api/maps/${id}`)
     })
     .catch (e => console.log(e))
       });
@@ -64,11 +64,13 @@ module.exports = (db) => {
       res.redirect(`/api/maps/${map_id}`)
   })
   router.post("/pins/delete", (req,res) => {
-    const name = req.body["pin-name-delete"]
-    const values = [name]
-    db.query(`DELETE FROM pins WHERE name = $1`, values)
-    .then(data => data.rows)
-    res.redirect("/")
+    const pinAdd = req.body.pinAdd;
+    const mapId = req.body.mapId;
+    const values = [pinAdd, mapId]
+    db.query(`DELETE FROM pins WHERE address = $1 AND map_id = $2`, values)
+    .then(
+      res.redirect(`/api/maps/${mapId}`)
+    )
   })
   return router;
 };

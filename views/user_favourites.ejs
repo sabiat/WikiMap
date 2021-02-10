@@ -14,37 +14,25 @@
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-
+    <link rel="stylesheet" href="/styles/favourites.css" type="text/css"/>
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/favourites.js"></script>
     <script src="https://kit.fontawesome.com/91be24cd0f.js" crossorigin="anonymous"></script>
 
-    <style type="text/css">
-      .each-map {
-        position: center;
-        border: solid lightgray 3px;
-        padding-top: 15px;
-        padding-bottom: 15px;
-        padding-left: 35px;
-      }
-      img {
-        width:300px;
-      }
-      </style>
   </head>
   <body>
     <header>
       <%- include('partials/nav')%>
     </header>
     <div class="container text-left">
-    <% for (let pair in templateVars) {%>
+    <% for (let pair in data) {%>
       <div class="column">
         <div class="each-map col-md-3">
         <p>
-          <a href="/api/maps/<%=templateVars[pair].id%>"><%=templateVars[pair].name%></a>
+          <a href="/api/maps/<%=data[pair].id%>"><%=data[pair].name%></a>
         </p>
-        <img class = "img-responsive img-rounded"src =<%=templateVars[pair].image%>></br>
-        <% if (templateVars[pair].currentUserId == templateVars[pair].userId) { %>
+        <img class = "img-responsive img-rounded"src =<%=data[pair].image%>></br>
+        <% if (data[pair].currentUserId == data[pair].userId) { %>
         <button class="remove-favourite btn btn-danger">
           <span class="glyphicon glyphicon-trash"></span> Remove from favourites
         </button>

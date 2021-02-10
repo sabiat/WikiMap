@@ -15,7 +15,8 @@ function initMap() {
         if (newArr[0]) {
           geocodeAddress(geocoder, map, newArr);
           for (pin of pins) {
-            $('.table').append(`<tr><th>${pin.name}</th><th>${pin.address}</th></tr>`);
+            const pinInfo = `<tr><th>${pin.name}</th><th>${pin.address}</th><th><button onclick="deletePin('${pin.address}', '${pins[0].map_id}')" class="delete-button">Delete pin</button></th></tr>`
+            $('.table').append(pinInfo);
           }
         }
         $("h3").text(`${pins[0].map_name}`)
@@ -38,6 +39,24 @@ addressesArr.forEach((address => {
   });
 }));
 }
+
+const deletePin = function(pinAdd, mapId) {
+  const info = {
+    pinAdd,
+    mapId
+  }
+  $.ajax({
+    method: "POST",
+    url: "/api/maps/pins/delete",
+    data: info,
+    success: function() {
+      window.location.reload();
+    }
+  })
+}
+
+
+
 
 
 
