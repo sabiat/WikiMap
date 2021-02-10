@@ -1,11 +1,7 @@
 body {
-  background-color: #eee;
+  background-color: #EEE;
 }
 
 body h1 {
   color: #244751;
-}
-button,
-input {
-  border-radius: 1em;
 }
