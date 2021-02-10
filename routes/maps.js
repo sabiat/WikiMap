@@ -43,9 +43,10 @@ module.exports = (db) => {
     const imageUrl = req.body.imageurl;
     const userId = req.session.user_id;
     const values = [userId, name, description, imageUrl];
-    db.query(`INSERT INTO maps (user_id, name, description, image_url) VALUES ($1, $2, $3, $4)`, values )
+    db.query(`INSERT INTO maps (user_id, name, description, image_url) VALUES ($1, $2, $3, $4) RETURNING *;`, values )
     .then((data) => {
-      return data.rows;
+      const id = data.rows[0].id
+      res.redirect(`/api/maps/${id}`)
     })
     .catch (e => console.log(e))
       });
@@ -63,10 +64,10 @@ module.exports = (db) => {
       res.redirect(`/api/maps/${map_id}`)
   })
   router.post("/pins/delete", (req,res) => {
-    const pinName = req.body.pinName;
+    const pinAdd = req.body.pinAdd;
     const mapId = req.body.mapId;
-    const values = [pinName]
-    db.query(`DELETE FROM pins WHERE name = $1`, values)
+    const values = [pinAdd, mapId]
+    db.query(`DELETE FROM pins WHERE address = $1 AND map_id = $2`, values)
     .then(
       res.redirect(`/api/maps/${mapId}`)
     )

@@ -1,0 +1,10 @@
+.each-map {
+  position: center;
+  border: solid lightgray 3px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 35px;
+}
+img {
+  width:300px;
+}
