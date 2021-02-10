@@ -52,8 +52,6 @@ module.exports = (db) => {
     const user_id = req.session.user_id;
     const map_id = req.body["map-id"];
     const values = [user_id, map_id]
-    // db.query(`SELECT map_id, user_id, COUNT(*) FROM favourites GROUP BY map_id, user_id HAVING count(*) > 1`)
-    // .then(data => console.log(data.rows))
     db.query(`INSERT INTO favourites (user_id, map_id) VALUES ($1, $2)`, values)
     .then(res => res.rows)
     res.redirect(`/api/users/${user_id}/favourites`)

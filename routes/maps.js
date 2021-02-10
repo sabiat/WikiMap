@@ -51,7 +51,6 @@ module.exports = (db) => {
     .catch (e => console.log(e))
       });
   router.post("/pins/add", (req, res) => {
-    console.log(req.params)
     const userId = req.session.user_id;
     const name = req.body["pin-name"];
     const description = req.body["pin-description"];
@@ -59,9 +58,10 @@ module.exports = (db) => {
     const image_url = req.body["pin-image"];
     const map_id = req.body["map-id"];
     const values = [name, description, address, image_url, userId, map_id];
+    console.log(values);
     db.query(`INSERT INTO pins (name, description, address, image_url, user_id, map_id) VALUES ($1, $2, $3, $4, $5, $6)`, values)
     .then(data => data.rows)
-    res.redirect(`/api/maps/${map_id}`)
+      res.redirect(`/api/maps/${map_id}`)
   })
   router.post("/pins/delete", (req,res) => {
     const name = req.body["pin-name-delete"]
