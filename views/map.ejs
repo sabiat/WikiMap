@@ -55,7 +55,14 @@
         </div>
         <div class="col-lg-5" >
           <div class="column">
-            <div id ="map-text" class="row-lg-6">
+            <div>
+              <form action="/api/users/favourites/add" method="POST">
+                <input class="map-id" type="textbox" name="map-id" style= "display: none">
+                <button class="btn btn-warning" type="submit">
+                  <span class="glyphicon glyphicon-star"></span> Add to favourites</button>
+              </form>
+            </div>
+            <div id ="map-text" class="row-lg-4">
               <div class="table-responsive">
                 <table class="table">
                   <thead>
@@ -69,15 +76,9 @@
                 </table>
               </div>
             </div>
-            <div class ="map-text" class="row-lg-6" >
+            <div class ="map-text" class="row-lg-4" >
               <div class="container.responsive" >
                 <h4>Add a new point:</h4>
-                <div>
-                  <form action="/api/users/favourites/add" method="POST">
-                    <input class="map-id" type="textbox" name="map-id" style= "display: none">
-                    <button type="submit">Add to favourites</button>
-                  </form>
-                </div>
                 <form class="form-group" action="/api/maps/pins/add" method="POST">
                   <div>
                     <label for="pin-name">Name of place:</label>
@@ -99,11 +100,10 @@
                     <input class="map-id" type="textbox" name="map-id" style= "display: none">
                   </div></br>
                   <button class="btn btn-default" type="submit">Add point</button>
-
                 </form>
               </div>
             </div>
-            <div id ="map-text" class="row-lg-6" >
+            <div id ="map-text" class="row-lg-4" >
               <div class="container.responsive" >
                 <h4>Delete a point</h4>
                 <form class="form-group" action="/api/maps/pins/delete" method="POST">
@@ -112,7 +112,7 @@
                     <input class="form-control" placeholder="Enter Name" id="delete-point" type="textbox" name="pin-name-delete">
                   </div></br>
                   <div>
-                  <button class="btn btn-default" type="submit">Add point</button>
+                  <button class="btn btn-default" type="submit">Delete a point</button>
                   </div>
                 </form>
 

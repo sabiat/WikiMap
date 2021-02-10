@@ -19,12 +19,12 @@
     <script type="text/javascript" src="/scripts/app.js"></script>
 
     <style type="text/css">
-      .col-md-6 {
+      .each-map {
+        position: center;
         border: solid lightgray 3px;
-        padding: 10px;
+        padding-bottom: 20px;
         /* margin: 2px; */
       }
-  
       </style>
 
   </head>
@@ -37,9 +37,9 @@
     <div class="container text-left"> 
     <% for (let pair in templateVars) {%>
       <div class="column">
-        <div class="col-md-6">
+        <div class="each-map col-md-3">
           <p><h3><a href="/api/maps/<%=templateVars[pair].id%>"><%=templateVars[pair].name%></a></h3></p>
-          <img class="img-responsive img-rounded" alt="Image" src =<%=templateVars[pair].image%> >
+          <img class="img-responsive img-rounded" alt="Image" src =<%=templateVars[pair].image%> width=300px>
         </div>
       </div>  
     <% } %>
