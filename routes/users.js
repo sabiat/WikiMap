@@ -132,7 +132,7 @@ module.exports = (db) => {
   })
   router.get("/:id/maps", (req, res) => {
     const id = req.params.id
-    db.query(`SELECT * FROM maps WHERE user_id = $1;`, [id])
+    db.query(`SELECT maps.* FROM maps JOIN pins ON maps.id = map_id WHERE pins.user_id = $1;`, [id])
     .then((data) => {
       const templateVars = {}
       console.log(templateVars)
