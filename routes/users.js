@@ -87,10 +87,8 @@ module.exports = (db) => {
   router.post("/favourites/delete", (req,res) => {
     const mapToRemove = Object.keys(req.body)[0];
     const user_id = req.session.user_id;
-    console.log(mapToRemove, user_id)
     db.query(`DELETE FROM favourites WHERE map_id = $1 AND favourites.user_id= $2`, [mapToRemove, user_id])
     .then(() => {
-      console.log('here');
       res.redirect(`/api/users/${user_id}/favourites`)
     })
 
