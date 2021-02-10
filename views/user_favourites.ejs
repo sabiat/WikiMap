@@ -18,6 +18,18 @@
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/favourites.js"></script>
     <script src="https://kit.fontawesome.com/91be24cd0f.js" crossorigin="anonymous"></script>
+
+    <style type="text/css">
+      .each-map {
+        position: center;
+        border: solid lightgray 3px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        padding-left: 35px;
+        
+        
+      }
+      </style>
   </head>
   <body>
     <header>
@@ -25,16 +37,15 @@
     </header>
     <div class="container text-left">
     <% for (let pair in templateVars) {%>
-      <div class="row">
-        <div class="each-map col-md">
+      <div class="column">
+        <div class="each-map col-md-4">
         <p>
           <a href="/api/maps/<%=templateVars[pair].id%>"><%=templateVars[pair].name%></a>
         </p>
-        <img class = "img-responsive img-rounded"src =<%=templateVars[pair].image%> width=200px>
-        <button class="remove-favourite">
-          <i class="fas fa-trash-alt">Remove from favourites</i>
+        <img class = "img-responsive img-rounded"src =<%=templateVars[pair].image%> width=300px></br>
+        <button class="remove-favourite btn btn-danger" >
+          <span class="glyphicon glyphicon-trash"></span> Remove from favourites
         </button>
-
       </div>
     </div>
     <% } %>
