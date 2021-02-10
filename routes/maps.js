@@ -15,10 +15,11 @@ module.exports = (db) => {
       });
   });
   router.get("/new", (req, res) => {
+    const templateVars = {user: req.session.user_id}
     if(req.session.user_id){
-      return res.render("map_new")
+      return res.render("map_new", templateVars)
     }
-    res.render('login')
+    res.render("login", templateVars)
   })
 
   router.get("/data/:id", (req, res) => {
@@ -33,10 +34,8 @@ module.exports = (db) => {
     getMap(id);
   });
   router.get("/:id", (req, res) => {
-    const id = req.session.user_id;
-    const templateVars = {id}
-      return res.render("map", templateVars);
-
+    const templateVars = {user: req.session.user_id}
+    return res.render("map", templateVars);
   });
   router.post("/", (req, res) => {
     const name = req.body.name;

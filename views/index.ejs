@@ -18,20 +18,20 @@
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
-  
+
   <body>
     <header>
       <%- include('partials/nav')%>
     </header>
-    
-    <div class="container text-left"> 
-    <% for (let pair in templateVars) {%>
+
+    <div class="container text-left">
+    <% for (let pair in data) {%>
       <div class="column">
         <div class="each-map col-md-3">
-          <p><h3><a href="/api/maps/<%=templateVars[pair].id%>"><%=templateVars[pair].name%></a></h3></p>
-          <img class="img-responsive img-rounded" alt="Image" src =<%=templateVars[pair].image%> width=300px>
+          <p><h3><a href="/api/maps/<%=data[pair].id%>"><%=data[pair].name%></a></h3></p>
+          <img class="img-responsive img-rounded" alt="Image" src =<%=data[pair].image%> width=300px>
         </div>
-      </div>  
+      </div>
     <% } %>
   </body>
 </html>

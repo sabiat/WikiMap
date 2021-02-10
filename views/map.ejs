@@ -35,7 +35,7 @@
         </div>
         <div class="col-lg-5" >
           <div class="column">
-            <% if (id) { %>
+            <% if (user) { %>
             <div>
               <form action="/api/users/favourites/add" method="POST">
                 <input class="map-id" type="textbox" name="map-id" style= "display: none">
@@ -60,7 +60,7 @@
             </div>
             <div class ="map-text" class="row-lg-4" >
               <div class="container.responsive" >
-                <% if (id) { %>
+                <% if (user) { %>
                 <h4>Add a new point:</h4>
                 <form class="form-group" action="/api/maps/pins/add" method="POST">
                   <div>
