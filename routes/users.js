@@ -165,5 +165,29 @@ module.exports = (db) => {
       return res.render("user_maps", templateVars)
     })
   });
+  router.get("/my/profile", (req, res) => {
+    if(req.session.user_id){
+      const id = req.session.user_id;
+      return res.redirect(`/api/users/${id}/profile`);
+    }
+    res.render('login');
+  })
+
+  router.get("/:id/profile", (req, res) => {
+    const id = req.params.id
+    db.query(`SELECT * FROM maps WHERE user_id = $1;`, [id])
+    .then((data) => {
+      const templateVars = {}
+      console.log(templateVars)
+      data.rows.forEach(row => {
+        rowObject = {}
+        rowObject.name = row.name
+        rowObject.image = row.image_url
+        rowObject.id = row.id
+        templateVars[row.id] = rowObject
+      })
+      return res.render("user_profile", {templateVars})
+    })
+  })
   return router;
 };
