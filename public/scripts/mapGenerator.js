@@ -15,7 +15,7 @@ function initMap() {
         if (newArr[0]) {
           geocodeAddress(geocoder, map, newArr);
           for (pin of pins) {
-            const pinInfo = `<tr><th>${pin.name}</th><th>${pin.address}</th><th><button onclick="deletePin('${pin.name}', '${pins[0].map_id}')" class="delete-button">Delete pin</button></th></tr>`
+            const pinInfo = `<tr><th>${pin.name}</th><th>${pin.address}</th><th><button onclick="deletePin('${pin.address}', '${pins[0].map_id}')" class="delete-button">Delete pin</button></th></tr>`
             $('.table').append(pinInfo);
           }
         }
@@ -40,9 +40,9 @@ addressesArr.forEach((address => {
 }));
 }
 
-const deletePin = function(pinName, mapId) {
+const deletePin = function(pinAdd, mapId) {
   const info = {
-    pinName,
+    pinAdd,
     mapId
   }
   $.ajax({

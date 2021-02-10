@@ -64,10 +64,10 @@ module.exports = (db) => {
       res.redirect(`/api/maps/${map_id}`)
   })
   router.post("/pins/delete", (req,res) => {
-    const pinName = req.body.pinName;
+    const pinAdd = req.body.pinAdd;
     const mapId = req.body.mapId;
-    const values = [pinName]
-    db.query(`DELETE FROM pins WHERE name = $1`, values)
+    const values = [pinAdd]
+    db.query(`DELETE FROM pins WHERE address = $1`, values)
     .then(
       res.redirect(`/api/maps/${mapId}`)
     )
