@@ -50,24 +50,6 @@ module.exports = (db) => {
     // };
     res.render("signup");
   });
-  // router.post("/", (req, res) => {
-  //   // If the e-mail or password are empty strings,
-  //   const email = req.body.email;
-  //   const password = req.body.password;
-  //   // console.log(email, password)
-  //     const userInfo = {
-  //       id: `123`,
-  //       email: email,
-  //       password: password
-  //     };
-
-  //     //Adding the user to the database
-  //     // console.log(userInfo);
-  //     req.session.id = userInfo.id;
-  //     res.redirect('/api/maps');
-
-  // });
-
   router.post("/logout", (req, res) => {
     req.session = null;
     res.redirect("/");
