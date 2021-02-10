@@ -21,6 +21,25 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+  router.get("/login", (req, res) => {
+    if(req.session.user_id) {
+      return res.redirect('/');
+    }
+    res.render('login')
+  })
+  router.post("/login", (req, res) => {
+    const username = req.body.email;
+    console.log(username)
+    db.query(`SELECT users.id FROM users WHERE users.email = $1;`, [username])
+    .then((data) => {
+      if(data.rows[0]){
+        req.session.user_id = data.rows[0].id;
+        return res.redirect("/");
+      } else {
+        return res.send('This user does not exist');
+      }
+    })
+  })
   router.get("/login/:id", (req, res) => {
     req.session.user_id = req.params.id;
     res.redirect("/");
@@ -58,8 +77,11 @@ module.exports = (db) => {
 
   })
   router.get("/my/favourites", (req, res) => {
-    const id = req.session.user_id;
-    res.redirect(`/api/users/${id}/favourites`);
+    if(req.session.user_id){
+      const id = req.session.user_id;
+      return res.redirect(`/api/users/${id}/favourites`);
+    }
+    res.render('login');
   })
   router.get("/:id/favourites", (req, res) => {
     const id = req.params.id
