@@ -1,0 +1,11 @@
+#map {
+  height: 600px;
+  width: 100%;
+  border: solid lightgray 3px;
+}
+
+#map-text {
+  border: solid lightgray 3px;
+  margin: 5px;
+  padding: 5px;
+}
