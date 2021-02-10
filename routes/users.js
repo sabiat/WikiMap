@@ -45,10 +45,25 @@ module.exports = (db) => {
     res.redirect("/");
   })
   router.get("/signup", (req, res) => {
-    // const templateVars = {
-    //   userObject: req.session["id"]
-    // };
-    res.render("signup");
+    if(req.session.user_id) {
+      return res.redirect('/');
+    }
+    res.render('signup')
+  });
+
+  router.post("/signup", (req, res) => {
+    const email = req.body.email;
+    db.query(`SELECT users.id FROM users WHERE users.email = $1;`, [ email ])
+    .then((data) => {
+      if(data.rows[0]){
+        return res.send('This email is already registered');
+      } else {
+        db.query(`INSERT INTO users (email, password) VALUES ($1, $2)`, [email, "password"])
+        .then((data) => {
+          return res.redirect("login");
+        })
+      }
+    })
   });
   router.post("/logout", (req, res) => {
     req.session = null;
@@ -110,6 +125,13 @@ module.exports = (db) => {
     })
     .catch(e => console.log(e))
   });
+  router.get("/my/maps", (req, res) => {
+    if(req.session.user_id){
+      const id = req.session.user_id;
+      return res.redirect(`/api/users/${id}/maps`);
+    }
+    res.render('login');
+  })
   router.get("/:id/maps", (req, res) => {
     const id = req.params.id
     db.query(`SELECT * FROM maps WHERE user_id = $1;`, [id])
