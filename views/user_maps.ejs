@@ -9,29 +9,37 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <title>Home Page</title>
+    <title>Maps</title>
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/favourites.css" type="text/css"/>
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
     <script>
     </script>
+    <script type="text/javascript" src="/scripts/favourites.js"></script>
+    <style>
 
+    </style>
   </head>
   <body>
     <header>
       <%- include('partials/nav')%>
     </header>
+    <div id="heading-text">
+      <h3>Here are all the maps I have contributed to:</h3>
+    </div>
+
   <div class="container">
       <hr class="mt-2 mb-5">
-    
+
       <div class="row text-center text-lg-left">
         <% for (let pair in data) {%>
           <div class="col-lg-3 col-md-4 col-6">
-            <a class="d-block mb-4 h-100" ref="/api/maps/<%=data[pair].id%>"><%=data[pair].name%>
+            <a class="d-block mb-4 h-100" href="/api/maps/<%=data[pair].id%>"><%=data[pair].name%>
               <img class="img-fluid img-thumbnail" src =<%=data[pair].image%>>
             </a>
           </div>

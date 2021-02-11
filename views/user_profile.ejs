@@ -11,14 +11,10 @@
 
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/styles/profile.css" type="text/css"/>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
-      #profile-item  {
-  border: solid lightgray 3px;
-  margin: 5px;
-  padding: 5px;
-}
     </style>
   </head>
   <body>
@@ -32,12 +28,12 @@
         <div>
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-HcOSnHqZObug5tHhvuKIDIItMObyCfoAkg&usqp=CAU" alt="Avatar" class="img-rounded" >
         </div>
-        <div  >
+        <div>
           <p>
             <h2><%=userName%></h2>
           </p>
         </div>
-        <div style="border-left: solid lightgray 3px;">
+        <div class="profile-box">
           <h4><a href="/api/users/<%=userMaps%>/maps">My Contributions</a></h4>
         </div>
       </div>

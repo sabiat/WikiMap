@@ -175,11 +175,12 @@ module.exports = (db) => {
   router.get("/:id/profile", (req, res) => {
     const id = req.params.id;
     const userId = req.session.user_id;
-    db.query(`SELECT users.email, favourites.*, maps.* FROM favourites JOIN maps ON maps.id=favourites.map_id JOIN users ON users.id = favourites.user_id WHERE favourites.user_id = $1;`, [id])
+    db.query(`SELECT users.email, users.id as userID, favourites.*, maps.* FROM favourites JOIN maps ON maps.id=favourites.map_id JOIN users ON users.id = favourites.user_id WHERE favourites.user_id = $1;`, [id])
     .then((data) => {
       let templateVars = {user: req.session.user_id};
+      console.log(data.rows)
       templateVars.userName = data.rows[0].email;
-      templateVars.userMaps = data.rows[0].user_id;
+      templateVars.userMaps = data.rows[0].userid;
       let parsedData = {};
       data.rows.forEach(row => {
         rowObject = {};
@@ -191,7 +192,7 @@ module.exports = (db) => {
         parsedData[row.id] = rowObject;
       })
       templateVars["data"] = parsedData;
-
+      // console.log(templateVars)
       if (userId) {
         return res.render("user_profile", templateVars);
       }
