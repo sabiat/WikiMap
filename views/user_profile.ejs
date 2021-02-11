@@ -14,7 +14,13 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-
+    <style>
+      #map-text {
+  border: solid lightgray 3px;
+  margin: 5px;
+  padding: 5px;
+}
+    </style>
   </head>
   <body>
     <header>
@@ -22,36 +28,49 @@
     </header>
     <div class="container.responsive text-center">
       <h3></h3><br>
-      <div class="row">
         <div class="col-lg-3">
-
+          <div class="imgcontainer">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-HcOSnHqZObug5tHhvuKIDIItMObyCfoAkg&usqp=CAU" alt="Avatar" class="avatar">
+          </div>
+          <% for (let pair in data) {%>
+          <p>
+            <H4>User Name</H4>
+            <a href="/api/maps/<%=data[pair].id%>"><%=data[pair].userId%></a>
+          </p>
+          <% } %>
         </div>
         <div class="col-lg-7" >
+
           <div class="column">
-
-
-            <div id ="map-text" class="row-lg-4">
-              <div class="container text-left">
-                <% for (let pair in templateVars) {%>
-                  <div class="column">
-                    <div class="each-map col-md-3">
-                    <p>
-                      <a href="/api/maps/<%=templateVars[pair].id%>"><%=templateVars[pair].name%></a>
-                    </p>
-                    <img class = "img-responsive img-rounded"src =<%=templateVars[pair].image%>></br>
-                  </div>
-                </div>
+            <h3>My favourites</h3>
+            <div class ="map-text" class="row-lg-4">
+              <div class="column">
+                <% for (let pair in data) {%>
+                  <p>
+                    <a href="/api/maps/<%=data[pair].id%>"><%=data[pair].name%></a>
+                  </p>
+                  <img class = "img-responsive img-rounded" style="height: 150px;" src =<%=data[pair].image%>></br>
                 <% } %>
+              </div>
             </div>
             <div class ="map-text" class="row-lg-4" >
-              <h3>hhh</h3>
-            </div>
-            <div id ="map-text" class="row-lg-4" >
-              <h3>hhh</h3>
+              <h3>My Contributtions</h3>
+              <div class="column">
+                <% for (let pair in data) {%>
+                  <p>
+                    <a href="/api/maps/<%=data[pair].id%>"><%=data[pair].name%></a>
+                  </p>
+                  <img class = "img-responsive img-rounded" style="height: 150px;" src =<%=data[pair].image%>></br>
+                <% } %>
+              </div>
             </div>
 
+          
           </div>
+
         </div>
+
+
     </div><br>
       
 
