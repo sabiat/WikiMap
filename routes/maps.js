@@ -21,7 +21,10 @@ module.exports = (db) => {
     }
     res.render("login", templateVars)
   })
-
+  router.get("/data", (req, res) => {
+    const id = req.session.user_id
+    return res.json({id})
+  })
   router.get("/data/:id", (req, res) => {
     const id = req.params.id
     const getMap = function(id) {

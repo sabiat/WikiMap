@@ -23,36 +23,65 @@ function initMap() {
         $(".map-id").val(`${pins[0].map_id}`)
   })
 }
+
+
 function geocodeAddress(geocoder, resultsMap, addresses) {
-const addressesArr = addresses
-addressesArr.forEach((address => {
-  geocoder.geocode({ address: address}, (results, status) => {
-    if (status === "OK"){
-      resultsMap.setCenter(results[0].geometry.location);
-      new google.maps.Marker({
-        map: resultsMap,
-        position: results[0].geometry.location,
-      });
-    } else {
-      alert("Geocode was not successful for the following reason: " + status);
-    }
-  });
-}));
-}
+  const addressesArr = addresses
+  addressesArr.forEach((address => {
+    geocoder.geocode({ address: address}, (results, status) => {
+      if (status === "OK"){
+        resultsMap.setCenter(results[0].geometry.location);
+        const infowindow = new google.maps.InfoWindow({
+          content: address,
+        });
+        const marker = new google.maps.Marker({
+          map: resultsMap,
+          position: results[0].geometry.location
+        });
+        marker.addListener("click", () => {
+          infowindow.open(resultsMap, marker);
+        });
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }));
+  }
+
+
 
 const deletePin = function(pinAdd, mapId) {
-  const info = {
-    pinAdd,
-    mapId
-  }
   $.ajax({
-    method: "POST",
-    url: "/api/maps/pins/delete",
-    data: info,
-    success: function() {
-      window.location.reload();
-    }
+    method: "GET",
+    url: "/api/maps/data"
   })
+  .done((data) => {
+    user = data.id
+    console.log(user);
+    if (user) {
+      const info = {
+        pinAdd,
+        mapId
+      }
+      $.ajax({
+        method: "POST",
+        url: "/api/maps/pins/delete",
+        data: info,
+        success: function() {
+          window.location.reload();
+        }
+      })
+    } else {
+      $.ajax({
+        method: "GET",
+        url: "/api/users/login",
+        success: function() {
+          window.location.assign("/api/users/login")
+        }
+      })
+    }
+  }
+  )
 }
 
 
