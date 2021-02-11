@@ -175,10 +175,11 @@ module.exports = (db) => {
   router.get("/:id/profile", (req, res) => {
     const id = req.params.id;
     const userId = req.session.user_id;
-    db.query(`SELECT favourites.*, maps.* FROM favourites JOIN maps ON maps.id=favourites.map_id WHERE favourites.user_id = $1;`, [id])
+    db.query(`SELECT users.email, favourites.*, maps.* FROM favourites JOIN maps ON maps.id=favourites.map_id JOIN users ON users.id = favourites.user_id WHERE favourites.user_id = $1;`, [id])
     .then((data) => {
-
       let templateVars = {user: req.session.user_id};
+      templateVars.userName = data.rows[0].email;
+      templateVars.userMaps = data.rows[0].user_id;
       let parsedData = {};
       data.rows.forEach(row => {
         rowObject = {};
