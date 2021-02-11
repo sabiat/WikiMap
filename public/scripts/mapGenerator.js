@@ -5,7 +5,6 @@ function initMap() {
     url: `/api/maps/data/${id[3]}`
   })
   .done((pins)=> {
-          console.log(pins);
           const newArr = [];
           pins.forEach(row => newArr.push(row.address))
           const map = new google.maps.Map(document.getElementById("map"), {
@@ -24,22 +23,32 @@ function initMap() {
         $(".map-id").val(`${pins[0].map_id}`)
   })
 }
+
+
 function geocodeAddress(geocoder, resultsMap, addresses) {
-const addressesArr = addresses
-addressesArr.forEach((address => {
-  geocoder.geocode({ address: address}, (results, status) => {
-    if (status === "OK"){
-      resultsMap.setCenter(results[0].geometry.location);
-      new google.maps.Marker({
-        map: resultsMap,
-        position: results[0].geometry.location
-      });
-    } else {
-      alert("Geocode was not successful for the following reason: " + status);
-    }
-  });
-}));
-}
+  const addressesArr = addresses
+  addressesArr.forEach((address => {
+    geocoder.geocode({ address: address}, (results, status) => {
+      if (status === "OK"){
+        resultsMap.setCenter(results[0].geometry.location);
+        const infowindow = new google.maps.InfoWindow({
+          content: address,
+        });
+        const marker = new google.maps.Marker({
+          map: resultsMap,
+          position: results[0].geometry.location
+        });
+        marker.addListener("click", () => {
+          infowindow.open(resultsMap, marker);
+        });
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }));
+  }
+
+
 
 const deletePin = function(pinAdd, mapId) {
   $.ajax({

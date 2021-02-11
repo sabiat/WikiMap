@@ -5,7 +5,7 @@ INSERT INTO pins (name, description, address, image_url, user_id, map_id) VALUES
 INSERT INTO pins (name, description, address, image_url, user_id, map_id) VALUES ('Toronto City Hall', 'Star Trek', '100 Queen St W', 'https://a.cdn-hotels.com/gdcs/production118/d1365/912395e0-db82-11e8-8022-0242ac11000d.jpg', 1, 4);
 INSERT INTO pins (name, description, address, image_url, user_id, map_id) VALUES ('Royal York Hotel', 'Red', '100 Front St W', 'https://www.fairmont.com/assets/0/104/2793/2798/4415/4423/b40e541e-7b09-4b45-8c89-04c5453dfa5e.jpg', 1, 4);
 INSERT INTO pins (name, description, address, image_url, user_id, map_id) VALUES ('Capilano Suspension Bridge Park', 'Outdoor activity', '3735 Capilano Road', 'https://assets.simpleviewinc.com/simpleview/image/upload/crm/vancouverbc/Cliffwalk-on-a-sunny-day-at-Capilano-Suspension-Bridge-Park_CE991BB0-6594-4E81-8EE4A0A03FF22C42_99141dc5-4edc-4762-b2e8b63cab319d2a.jpg', 2, 5);
-
+INSERT INTO pins (name, description, address, image_url, user_id, map_id) VALUES ('Richmond Station', 'Seasonal cuisine', '1 Richmond St W', 'https://d1ralsognjng37.cloudfront.net/7dd8551d-12a6-4bdb-9c80-39cbff388fd1.jpeg', 2, 1);
 
 -- CREATE TABLE pins (
 --   id SERIAL PRIMARY KEY NOT NULL,
