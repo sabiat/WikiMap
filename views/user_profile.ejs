@@ -32,17 +32,14 @@
           <div class="imgcontainer">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-HcOSnHqZObug5tHhvuKIDIItMObyCfoAkg&usqp=CAU" alt="Avatar" class="avatar">
           </div>
-          <% for (let pair in data) {%>
           <p>
-            <H4>User Name</H4>
-            <a href="/api/maps/<%=data[pair].id%>"><%=data[pair].userId%></a>
+            <h2><%=userName%></h2>
           </p>
-          <% } %>
         </div>
         <div class="col-lg-7" >
 
           <div class="column">
-            <h3>My favourites</h3>
+            <h3>My favourite Maps</h3>
             <div class ="map-text" class="row-lg-4">
               <div class="column">
                 <% for (let pair in data) {%>
@@ -54,25 +51,18 @@
               </div>
             </div>
             <div class ="map-text" class="row-lg-4" >
-              <h3>My Contributtions</h3>
-              <div class="column">
-                <% for (let pair in data) {%>
-                  <p>
-                    <a href="/api/maps/<%=data[pair].id%>"><%=data[pair].name%></a>
-                  </p>
-                  <img class = "img-responsive img-rounded" style="height: 150px;" src =<%=data[pair].image%>></br>
-                <% } %>
-              </div>
+              <h3><a href="/api/users/<%=userMaps%>/maps">My Contributions</a></h3>
+
             </div>
 
-          
+
           </div>
 
         </div>
 
 
     </div><br>
-      
+
 
   </body>
 
