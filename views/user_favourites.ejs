@@ -26,13 +26,13 @@
     </header>
     <div class="container">
 
-      <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">Thumbnail Gallery</h1>
-    
+      <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">My favourite maps:</h1>
+
       <hr class="mt-2 mb-5">
-    
+
       <div class="row text-center text-lg-left">
         <% for (let pair in data) {%>
-          <div class="col-lg-3 col-md-4 col-6">        
+          <div class="col-lg-3 col-md-4 col-6">
             <a class="d-block mb-4 h-100" href="/api/maps/<%=data[pair].id%>"><%=data[pair].name%>
               <img class="img-fluid img-thumbnail" src =<%=data[pair].image%>>
             </a>
