@@ -15,11 +15,8 @@ function initMap() {
         const geocoder = new google.maps.Geocoder();
         if (newArr[0]) {
           geocodeAddress(geocoder, map, newArr);
-          const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-          let labelIndex = 0;
           for (pin of pins) {
-            pinLabel = labels[labelIndex++ % labels.length]
-            const pinInfo = `<tr><th>${pinLabel}</th><th>${pin.name}</th><th>${pin.address}</th><th><button onclick="deletePin('${pin.address}', '${pins[0].map_id}')" class="delete-button">Delete pin</button></th></tr>`
+            const pinInfo = `<tr><th>${pin.name}</th><th>${pin.address}</th><th><button onclick="deletePin('${pin.address}', '${pins[0].map_id}')" class="delete-button">Delete pin</button></th></tr>`
             $('.table').append(pinInfo);
           }
         }
@@ -29,16 +26,13 @@ function initMap() {
 }
 function geocodeAddress(geocoder, resultsMap, addresses) {
 const addressesArr = addresses
-const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-let labelIndex = 0;
 addressesArr.forEach((address => {
   geocoder.geocode({ address: address}, (results, status) => {
     if (status === "OK"){
       resultsMap.setCenter(results[0].geometry.location);
       new google.maps.Marker({
         map: resultsMap,
-        position: results[0].geometry.location,
-        label: labels[labelIndex++ % labels.length]
+        position: results[0].geometry.location
       });
     } else {
       alert("Geocode was not successful for the following reason: " + status);
