@@ -25,13 +25,19 @@
     <header>
       <%- include('partials/nav')%>
     </header>
-    <% for (let pair in data) {%>
-      <div class="each-map">
-        <p>
-          <a href="/api/maps/<%=data[pair].id%>"><%=data[pair].name%></a>
-        </p>
-        <img src =<%=data[pair].image%> width=200px>
+  <div class="container">
+      <hr class="mt-2 mb-5">
+    
+      <div class="row text-center text-lg-left">
+        <% for (let pair in data) {%>
+          <div class="col-lg-3 col-md-4 col-6">
+            <a class="d-block mb-4 h-100" ref="/api/maps/<%=data[pair].id%>"><%=data[pair].name%>
+              <img class="img-fluid img-thumbnail" src =<%=data[pair].image%>>
+            </a>
+          </div>
+        <% } %>
       </div>
-    <% } %>
+    </div>
   </body>
 </html>
+
