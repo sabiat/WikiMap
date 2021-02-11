@@ -139,7 +139,6 @@ module.exports = (db) => {
 
   router.get("/my/maps", (req, res) => {
     const templateVars = {user: req.session.user_id}
-    console.log(templateVars)
     if(req.session.user_id){
       const id = req.session.user_id;
       return res.redirect(`/api/users/${id}/maps`);
@@ -174,20 +173,31 @@ module.exports = (db) => {
   })
 
   router.get("/:id/profile", (req, res) => {
-    const id = req.params.id
-    db.query(`SELECT * FROM maps WHERE user_id = $1;`, [id])
+    const id = req.params.id;
+    const userId = req.session.user_id;
+    db.query(`SELECT favourites.*, maps.* FROM favourites JOIN maps ON maps.id=favourites.map_id WHERE favourites.user_id = $1;`, [id])
     .then((data) => {
-      const templateVars = {}
-      console.log(templateVars)
+
+      let templateVars = {user: req.session.user_id};
+      let parsedData = {};
       data.rows.forEach(row => {
-        rowObject = {}
-        rowObject.name = row.name
-        rowObject.image = row.image_url
-        rowObject.id = row.id
-        templateVars[row.id] = rowObject
+        rowObject = {};
+        rowObject.name = row.name;
+        rowObject.image = row.image_url;
+        rowObject.id = row.id;
+        rowObject.currentUserId = userId;
+        rowObject.userId = id;
+        parsedData[row.id] = rowObject;
       })
-      return res.render("user_profile", {templateVars})
+      templateVars["data"] = parsedData;
+
+      if (userId) {
+        return res.render("user_profile", templateVars);
+      }
+      res.redirect("/api/users/login");
     })
-  })
+    .catch(e => console.log(e));
+
+  });
   return router;
 };
