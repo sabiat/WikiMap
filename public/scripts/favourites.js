@@ -1,6 +1,6 @@
 $(document).ready(function(){
     $(".remove-favourite").on('click', function() {
-      const name = $(this).closest(".each-map").find("a")
+      const name = $(this).closest(".col-lg-3").find("a")
       let url = name[0].href;
       const id = url.substring(url.lastIndexOf('/') + 1);
       console.log(id)
